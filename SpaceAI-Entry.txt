@@ -1,0 +1,47 @@
+const Web3 = require('web3');
+
+// For local node
+// const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+// For Infura
+Const web3 = new Web3(new Web3.providers.HttpProvider("https://xxx.xx.xx/v1/SpaceAI"));
+
+if (typeof window.ethereum !== 'undefined') {
+    const web3 = new Web3(window.ethereum);
+    try {
+        // Request user account access
+        await window.ethereum.enable();
+    } catch (error) {
+        console.error("User denied account access");
+    }
+}
+
+const contractSpaceAI = [...];  // my contract's ABI
+const contractAddress = '0x...';  // my contract's address
+const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+web3.eth.sendTransaction({
+    from: 'MY_ADDRESS',
+    to: 'RECIPIENT_ADDRESS',
+    value: web3.utils.xxx('1', 'ether')
+});
+
+contract.methods.SpaceAI_METHOD().send({ from: 'MY_ADDRESS' });
+
+contract.events.MyEvent()
+    .on('data', (event) => {
+        console.log(event);
+    })
+    .on('error', (error) => {
+        console.error(error);
+    });
+
+window.ethereum.on('accountsChanged', (accounts) => {
+    // Handle the new accounts, or reload the page.
+    console.log('New accounts:', accounts);
+});
+
+window.ethereum.on('networkChanged', (networkId) => {
+    // Handle the new network, or reload the page.
+    console.log('New network:', networkId);
+});
